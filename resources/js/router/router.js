@@ -10,7 +10,11 @@ const routes = [
         name:'login',
         component:Login
     },
-
+    {
+        path:'/products',
+        name:'products',
+        component:Products
+    },
     {
         path:'/:notFound(.*)*',
         name:'notFound',
