@@ -6,10 +6,57 @@
             <h1>PRODUCTS</h1>
           </div>
           <div class="w-[50%] flex flex-row">
-            <button class="border px-2 rounded-l-md bg-gray-500 text-white">Sea</button>
+            <button class="border px-2 rounded-l-md bg-gray-500 text-white"></button>
             <input class="w-full h-full px-2 rounded-r-md border" placeholder="Search" type="text">
           </div>
-          <button class="border py-1 px-2 rounded-md bg-gray-500 text-white">Add Product</button>
+
+          <!--Add Product Modal Button-->
+          <button class=" border py-1 px-2 rounded-md bg-gray-500 text-white"
+                  onclick="addProductModal.showModal()">
+                  Add Product
+          </button>
+          
+          <!--Add Product Modal-->
+            <dialog id="addProductModal" class="modal flex items-start justify-center mt-10">
+              <div class="modal-box w-full">
+                <form method="dialog">
+                  <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                  <div class="mt-5 rounded-md">
+                      <div class="">
+                        <h1>Name</h1>
+                        <input type="text" class="border focus:outline-gray-500 p-2 rounded-md w-[70%] placeholder:text-sm" placeholder="Item name">
+                      </div>
+                      <div>
+                        <h1>Description</h1>
+                        <textarea class=" focus:outline-gray-500 w-[70%] border p-2 h-[100px] rounded-md" placeholder="Item Description"></textarea>
+                      </div>
+                      <div class="border">
+                        <h1>Upload Image</h1>
+                        <input type="file">
+                      </div>
+                      <div>
+                        <h1>Category</h1>
+                        <select class="select select-bordered w-full max-w-xs">
+                          <option disabled selected>Choose Category?</option>
+                          <option>Food</option>
+                          <option>Shirt</option>
+                        </select>
+                      </div>
+                      <div>
+                        <div class="">
+                        <h1>Price</h1>
+                        <input type="number" class="border focus:outline-gray-500 p-2 rounded-md w-[70%] placeholder:text-sm" placeholder="Item name">
+                      </div>
+                      </div>
+
+                  </div>
+
+                </form>
+              </div>
+            </dialog>
+
+            
+
       </div>
       <div>
         <table class="table">
