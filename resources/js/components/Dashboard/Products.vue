@@ -6,18 +6,20 @@
             <h1>PRODUCTS</h1>
           </div>
           <div class="w-[50%] flex flex-row">
-            <button class="border px-2 rounded-l-md bg-gray-500 text-white"></button>
+            <button class="border px-2 rounded-l-md bg-gray-500 text-white flex items-center">
+              <box-icon color="white" name='search-alt'></box-icon>
+            </button>
             <input class="w-full h-full px-2 rounded-r-md border" placeholder="Search" type="text">
           </div>
 
-          <!--Add Product Modal Button-->
+          <!--Open Product Modal Button-->
           <button class=" border py-1 px-2 rounded-md bg-gray-500 text-white"
-                  onclick="addProductModal.showModal()">
+                  onclick="openProductModal.showModal()">
                   Add Product
           </button>
           
           <!--Add Product Modal-->
-            <dialog id="addProductModal" class="modal flex items-start justify-center mt-10">
+            <dialog id="openProductModal" class="modal flex items-start justify-center ">
               <div class="modal-box w-full">
                 <form method="dialog">
                   <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -30,9 +32,10 @@
                         <h1>Description</h1>
                         <textarea class=" focus:outline-gray-500 w-[70%] border p-2 h-[100px] rounded-md" placeholder="Item Description"></textarea>
                       </div>
-                      <div class="border">
+                      <div class="">
                         <h1>Upload Image</h1>
-                        <input type="file">
+                        <img src="" alt="image" class="border rounded-md shadow-inner w-24 h-24">
+                        <input class="file:rounded-md file:bg-gray-700 file:text-white file:outline-none file:border-none my-2" type="file">
                       </div>
                       <div>
                         <h1>Category</h1>
@@ -44,11 +47,36 @@
                       </div>
                       <div>
                         <div class="">
-                        <h1>Price</h1>
-                        <input type="number" class="border focus:outline-gray-500 p-2 rounded-md w-[70%] placeholder:text-sm" placeholder="Item name">
+                          <h1>Price</h1>
+                          <input type="number" class="border focus:outline-gray-500 p-2 rounded-md w-[70%] placeholder:text-sm" placeholder="Price">
+                        </div>
                       </div>
+                      <div>
+                        <div class="">
+                          <h1>Quantity</h1>
+                          <input type="number" class="border focus:outline-gray-500 p-2 rounded-md w-[70%] placeholder:text-sm" placeholder="Quantity">
+                        </div>
                       </div>
 
+                  </div>
+
+                  <!--Save Product------------------------>
+                  <div class="flex justify-end">
+                    <!--Save Button----------------------------->
+                    <button class="border-2 py-2 px-2 rounded-md mt-2 shadow-md bg-gray-700 text-white hover:border-2 hover:border-black hover:bg-white hover:text-black hover:transition duration-500"
+                            @click.prevent onclick="saveProduct.showModal()"
+                            @click="handleSave"
+                            >Save Product </button>
+                      <!--Alert Dialog--------------------->
+                            <dialog id="saveProduct" class="modal">
+                              <div class="modal-box">
+                                <h3 class="text-lg font-bold">Success!</h3>
+                                <p class="py-4">Product Created</p>
+                              </div>
+                              <form method="dialog" class="modal-backdrop">
+                                <button>close</button>
+                              </form>
+                            </dialog>
                   </div>
 
                 </form>
@@ -192,45 +220,21 @@
 
     </div>
 </div>
-  </template>
+</template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        users: [
-          { id: 1, name: "Alice", email: "alice@example.com" },
-          { id: 2, name: "Bob", email: "bob@example.com" },
-          { id: 3, name: "Charlie", email: "charlie@example.com" },
-          { id: 4, name: "David", email: "david@example.com" },
-          { id: 5, name: "Emma", email: "emma@example.com" },
-          { id: 6, name: "Frank", email: "frank@example.com" },
-        ],
-        currentPage: 1,
-        perPage: 2,
-      };
-    },
-    computed: {
-      totalPages() {
-        return Math.ceil(this.users.length / this.perPage);
-      },
-      paginatedUsers() {
-        let start = (this.currentPage - 1) * this.perPage;
-        return this.users.slice(start, start + this.perPage);
-      },
-    },
-    methods: {
-      nextPage() {
-        if (this.currentPage < this.totalPages) {
-          this.currentPage++;
-        }
-      },
-      prevPage() {
-        if (this.currentPage > 1) {
-          this.currentPage--;
-        }
-      },
-    },
-  };
-  </script>
+<script setup>
+  const form ={
+    name: "",
+    description: "",
+    image: "",
+    type: "",
+    quantity:"",
+    price: ""
+  }
+
+  const handleSave =()=>{
+    
+  }
+
+</script>
   

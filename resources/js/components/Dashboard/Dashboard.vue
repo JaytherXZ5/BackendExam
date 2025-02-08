@@ -10,12 +10,8 @@
 
 </template>
 
-<script>
+<script setup>
 import Products from './Products.vue'
 import SideNav from '../Dashboard/SideNav.vue'
-export default{
-    components:{
-        Products, SideNav
-    }
-}
+
 </script>
