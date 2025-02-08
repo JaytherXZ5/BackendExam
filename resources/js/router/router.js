@@ -1,11 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Products from '../components/products/Products.vue';
+import NotFound from '../NotFound.vue';
+import Dashboard from '../components/Dashboard/Dashboard.vue';
+import Login from '../components/Auth/Login.vue';
 
 const routes = [
+
     {
         path:'/',
-        name:'products',
-        component:Products
+        name:'login',
+        component:Login
+    },
+
+    {
+        path:'/:notFound(.*)*',
+        name:'notFound',
+        component: NotFound
+    },
+    {
+        path: '/admin',
+        name: 'dashboard',
+        component: Dashboard,
+
     }
 ]
 
