@@ -64,84 +64,7 @@
               </td>
           </tr>
 
-          <tr>
-              <th>2</th>
-              <td>
-              <div class="flex items-center gap-3">
-                  <div class="avatar">
-                  <div class="mask mask-squircle h-12 w-12">
-                      <img
-                      src="https://img.daisyui.com/images/profile/demo/3@94.webp"
-                      alt="Avatar Tailwind CSS Component" />
-                  </div>
-                  </div>
-                  <div>
-                  <div class="font-bold">Brice Swyre</div>
-                  <div class="text-sm opacity-50">China</div>
-                  </div>
-              </div>
-              </td>
-              <td>Category</td>
-              <th>
-              <button class="btn btn-ghost btn-xs">details</button>
-              </th>
-              <td>
-                10/10/25
-              </td>
-          </tr>
 
-          <tr>
-              <th>3</th>
-              <td>
-              <div class="flex items-center gap-3">
-                  <div class="avatar">
-                  <div class="mask mask-squircle h-12 w-12">
-                      <img
-                      src="https://img.daisyui.com/images/profile/demo/4@94.webp"
-                      alt="Avatar Tailwind CSS Component" />
-                  </div>
-                  </div>
-                  <div>
-                  <div class="font-bold">Marjy Ferencz</div>
-                  <div class="text-sm opacity-50">Russia</div>
-                  </div>
-              </div>
-              </td>
-              
-              <td>Category</td>
-              <th>
-              <button class="btn btn-ghost btn-xs">details</button>
-              </th>
-              <td>
-                10/10/25
-              </td>
-          </tr>
-
-          <tr>
-              <th>4</th>
-              <td>
-              <div class="flex items-center gap-3">
-                  <div class="avatar">
-                  <div class="mask mask-squircle h-12 w-12">
-                      <img
-                      src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                      alt="Avatar Tailwind CSS Component" />
-                  </div>
-                  </div>
-                  <div>
-                  <div class="font-bold">Yancy Tear</div>
-                  <div class="text-sm opacity-50">Brazil</div>
-                  </div>
-              </div>
-              </td>
-              <td>Category</td>
-              <th>
-                <button class="btn btn-ghost btn-xs">details</button>
-              </th>
-              <td>
-                10/10/25
-              </td>
-          </tr>
           </tbody>
       </table>
       </div>
@@ -159,7 +82,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter();
 
 const createProduct = () =>{
-  router.push('/product/create');
+  router.push('/create_product');
 }
 
 </script>

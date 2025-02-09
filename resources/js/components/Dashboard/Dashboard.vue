@@ -20,6 +20,6 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
 
-const isCreateProduct = computed(() => route.path === "/product/create");
+const isCreateProduct = computed(() => route.path === "/create_product");
 const isProducts = computed(() => route.path === "/products");
 </script>

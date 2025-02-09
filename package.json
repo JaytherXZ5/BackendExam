@@ -8,7 +8,7 @@
     "devDependencies": {
         "@vitejs/plugin-vue": "^5.2.1",
         "autoprefixer": "^10.4.20",
-        "axios": "^1.7.4",
+        "axios": "^1.7.9",
         "concurrently": "^9.0.1",
         "daisyui": "^4.12.23",
         "laravel-vite-plugin": "^1.2.0",
@@ -20,6 +20,8 @@
         "vue-router": "^4.5.0"
     },
     "dependencies": {
-        "boxicons": "^2.1.4"
+        "boxicons": "^2.1.4",
+        "sweetalert2": "^11.16.0",
+        "vue3-datepicker": "^0.4.0"
     }
 }
