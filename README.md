@@ -1,13 +1,14 @@
 1. Open your command terminal and clone repository:
 
      C:\Users\User>Desktop> git clone https://github.com/JaytherXZ5/BackendExam.git
+     >cd Project
 
 2. Open the project in your IDE, ex: VS CODE
 
 3. Install Node.js if you haven't already:  
    Download and install from -> https://nodejs.org/
 
-4. Open terminal your IDE terminal and run: 
+4. Open project terminal and run: 
     > npm install
     
 5. I used XAMPP-MYSQL. 
@@ -50,9 +51,9 @@
     Create account credentials and run command:
     > php artisan db:seed --class=UserSeeder
 
-14. Run the Project by running the command in the terminal:
+15. Run the Project by running the command in the terminal:
     >npm run dev
-15. Open another terminal and run:
+16. Open another terminal and run:
     >php artisan serve
 
-16. Open the project link at your localhost server http://127.0.0.1:8000
+17. Open the project link at your localhost server http://127.0.0.1:8000
