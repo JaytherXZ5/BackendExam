@@ -18,7 +18,7 @@ const routes = [
         component: NotFound
     },
     {
-        path: '/admin',
+        path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
         children:[

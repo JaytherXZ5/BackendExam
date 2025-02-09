@@ -3,7 +3,7 @@
     <div class="h-screen w-screen ">
         <div class="flex-1 flex h-full w-full p-2 ">
              <SideNav/>
-             <Products v-if="isProducts"/>
+             <Products v-if="isProducts || isDashboard "/>
              <CreateProduct v-if="isCreateProduct"/>
         </div>
 
@@ -22,4 +22,5 @@ const route = useRoute();
 
 const isCreateProduct = computed(() => route.path === "/create_product");
 const isProducts = computed(() => route.path === "/products");
+const isDashboard = computed(() => route.path === "/dashboard");
 </script>
