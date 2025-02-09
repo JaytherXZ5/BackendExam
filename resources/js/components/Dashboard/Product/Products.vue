@@ -159,7 +159,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter();
 
 const createProduct = () =>{
-  router.push('/products/create');
+  router.push('/product/create');
 }
 
 </script>
