@@ -10,6 +10,19 @@ use Carbon\Carbon;
 
 class ProductController extends Controller
 {   
+    public function index(){
+
+        $products = Product::with(['images' => function ($query) {
+            $query->orderBy('id', 'asc')->limit(1);
+        }])->paginate(5);
+        
+
+        return response()->json([
+            'products' => $products
+        ],200);
+
+    }
+
     public function create_product(Request $request){
 
         $validated = $request->validate([
@@ -18,10 +31,10 @@ class ProductController extends Controller
             'category' => 'nullable|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
-            'date' => 'nullable|date', 
+            'date' => 'nullable|date_format:Y-m-d H:i:s', 
         ]);
         if ($request->has('date')) {
-            $validated['date'] = Carbon::parse($request->date)->format('Y-m-d');
+            $validated['date'] = Carbon::parse($request->date)->format('Y-m-d H:i:s');
         }
 
         $product = Product::create([

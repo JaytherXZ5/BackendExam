@@ -131,7 +131,7 @@
         formData.append('name', form.name);
         formData.append('description', form.description);
         formData.append('category', form.category);
-        formData.append('date', form.date.toISOString().split('T')[0]);
+        formData.append('date', form.date.toISOString().replace('T', ' ').split('.')[0]);
         form.selectedImages.forEach((image)=>{
             formData.append('images[]',image);  
         });

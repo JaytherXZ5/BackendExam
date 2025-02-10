@@ -23,6 +23,10 @@
 <script setup>
     import { reactive, ref } from 'vue';
     import axios from 'axios';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+    
     const form = reactive({
         login: '',
         password: '',
