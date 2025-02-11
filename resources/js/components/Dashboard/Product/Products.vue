@@ -5,11 +5,17 @@
           <div class=" px-2 flex items-center font-bold ">
             <h1>PRODUCTS</h1>
           </div>
+
+          <!--SEARCH -->
           <div class="w-[50%] flex flex-row">
-            <button class="border px-2 rounded-l-md bg-gray-700 text-white flex items-center">
+            <div class="border px-2 rounded-l-md bg-gray-700 text-white flex items-center">
               <box-icon color="white" name='search-alt'></box-icon>
-            </button>
-            <input class="w-full h-full px-2 rounded-r-md border" placeholder="Search" type="text">
+            </div>
+            <!--SEARCH INPUT-->
+            <input class="w-full h-full px-2 rounded-r-md border" 
+              placeholder="Search Product" 
+              v-model="searchQuery" 
+              type="text">
           </div>
 
           <button @click="createProduct" class="mr-28 shadow-md border-2 py-1 px-2 rounded-md bg-gray-800 text-white
@@ -61,9 +67,11 @@
               <td class="">
                 <div class="flex gap-2">
                   <div class="w-10 h-10 border rounded-lg">
-                    <button class="w-full h-full btn btn-ghost btn-xs"> <box-icon color="#0a1185" class="w-full h-full"  name='edit' type='solid' ></box-icon></button>
+                    <!--EDIT-->
+                    <button @click="onEdit(product.id)" class="w-full h-full btn btn-ghost btn-xs"> <box-icon color="#0a1185" class="w-full h-full"  name='edit' type='solid' ></box-icon></button>
                   </div>
                   <div class="w-10 h-10 border rounded-lg">
+                    <!--DELETE-->
                     <button class="w-full h-full btn btn-ghost btn-xs"><box-icon color="red" class="w-full h-full" type='solid' name='trash'></box-icon></button>
                   </div>
 
@@ -87,7 +95,10 @@
             v-for="(link,index) in links"
             :key="index"
             v-html="link.label"
-            :class="{ active : link.active,disabled: !link.url}"
+            :class="{ 
+                'bg-gray-700 text-white': link.active, 
+                'opacity-50 cursor-not-allowed hidden': !link.url 
+            }"
             @click="changePage(link)"></a>
       </div>
 
@@ -104,15 +115,20 @@
 <script setup>
 
 import { useRouter } from 'vue-router'
-import { ref,onMounted } from 'vue';
+import { ref,onMounted,watch } from 'vue';
 import axios from 'axios';
 const router = useRouter();
 
 let products = ref([]);
 let links = ref([]);
 let loading = ref(false);
+let searchQuery = ref('');
 
 onMounted(async ()=>{
+  getProducts()
+})
+
+watch(searchQuery, ()=>{
   getProducts()
 })
 
@@ -120,12 +136,17 @@ const createProduct = () =>{
   router.push('/create_product');
 }
 
+const onEdit = (id) =>{
+  router.push(`/products/${id}/edit`)
+}
+
 const getProducts = async ()=>{
   loading.value = true;
   try {
-    let response = await axios.get('/api/products');
+    let response = await axios.get('/api/products?&searchQuery=' + searchQuery.value);
     products.value = response.data.products.data;
     links.value = response.data.products.links;
+    
   } catch (error) {
     console.error("Error fetching products:", error);
   } finally {
@@ -136,7 +157,9 @@ const getProducts = async ()=>{
 const changePage = (link)=>{
   loading.value = true;
   if(!link.url || link.active){
+    loading.value = false;
     return;
+    
   }
 
   axios.get(link.url).then((response)=>{

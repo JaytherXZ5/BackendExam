@@ -52,6 +52,10 @@
     
     >php artisan db:seed --class=UserSeeder
 
+    Seed products
+    
+    >php artisan db:seed --class=ProductSeeder
+
 15. Run the Project by running the command in the terminal:
     >npm run dev
 16. Open another terminal and run:

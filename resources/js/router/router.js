@@ -3,18 +3,17 @@ import NotFound from '../NotFound.vue';
 import Dashboard from '../components/Dashboard/Dashboard.vue';
 import Login from '../components/Auth/Login.vue';
 import Products from '../components/Dashboard/Product/Products.vue';
-import CreateProduct from '../components/Dashboard/Product/CreateProduct.vue';
+import ProductForm from '../components/Dashboard/Product/CreateProduct.vue';
+import Videos from '../components/Dashboard/Video/Videos.vue';
+
 const routes = [
 
     {
         path:'/',
         name:'login',
         component:Login,
-        redirect: () => {
-            return localStorage.getItem('authToken') ? '/dashboard' : '/';
-        }
-    },
 
+    },
     {
         path:'/:notFound(.*)*',
         name:'notFound',
@@ -35,9 +34,22 @@ const routes = [
             {
                 path:'/create_product',
                 name:'createProduct',
-                component:CreateProduct,
+                component:ProductForm,
                 meta: { requiresAuth: true },
-            }
+            },
+            {
+                path:'/products/:id/edit',
+                name:'editProduct',
+                component:ProductForm,
+                meta: { requiresAuth: true },
+            },
+            {
+                path:'/videos',
+                name:'videos',
+                component:Videos,
+                meta: { requiresAuth: true },
+            },
+
         ]
     }
 ]

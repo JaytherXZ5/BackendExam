@@ -7,28 +7,83 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {   
-    public function index(){
+    public function index(Request $request){
+        $products = Product::query();
 
-        $products = Product::with(['images' => function ($query) {
+        if($request->searchQuery !=''){
+            $products = Product::where('name', 'like', '%'. $request->searchQuery. '%');
+        }
+
+        $products = $products->with(['images' => function ($query) {
             $query->orderBy('id', 'asc')->limit(1);
-        }])->paginate(5);
-        
+        }]);
 
+        $products = $products->latest()->paginate(6);
+        
         return response()->json([
             'products' => $products
         ],200);
 
     }
 
-    public function create_product(Request $request){
+    public function edit($id){
+        $product = Product::with('images')->find($id);
 
+        return response()->json([
+            'product'=> $product
+        ],200);
+    }
+
+    public function update(Request $request, $id){
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'date' => 'nullable|date_format:Y-m-d H:i:s', 
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        $product->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'category' => $validated['category'],
+            'date' => $validated['date'],
+        ]);
+
+        if($request->hasFile('images')){ 
+                foreach($request->file('images') as $image){ 
+                    $folder = "/uploads/".$request->name; 
+                    $file = $request->name."_".time().".".$image->extension();
+                    //Storage::move('public/'.$image->image_path, $new_path);
+                    $path =$image->storeAs($folder,$file,'public');
+                    
+                    $productImage = ProductImage::create([
+                        'product_id' => $product->id,
+                        'name'=>$request->name,
+                        'image_path' => $path,
+                    ]);
+                }
+        }
+
+        return response()->json([
+            'message' => 'Product updated successfully!',
+            'product' => $product->load('images')
+        ], 200);
+    }
+
+    public function create_product(Request $request){
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'date' => 'nullable|date_format:Y-m-d H:i:s', 
@@ -54,6 +109,7 @@ class ProductController extends Controller
 
                 $productImage = ProductImage::create([
                     'product_id' => $product->id,
+                    'name'=>$filename,
                     'image_path' => $path,
                 ]);
 
