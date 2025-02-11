@@ -8,15 +8,15 @@
             
         </div>
         <div class=" justify-center">
-            <ul class="steps steps-vertical lg:steps-horizontal">
-                <li class="step step-primary"></li>
+            <ul class="steps steps-vertical lg:steps-horizontal flex w-full">
+                <li class="step step-primary "></li>
                 
                 <li :class="{'step step-primary': form.name && form.description && form.category,'step':!form.name || !form.description || !form.category }"></li>
                 <li :class="{'step step-primary': form.selectedImages.length > 0||form.currentImagePreview.length,'step': !form.selectedImages.length}"></li>
 
             </ul>
         </div>
-        
+        <div class="px-4 underline">FILL ALL NECESSARY FIELDS</div>
         <div class="flex-1 h-full w-full my-4">
             <div class="w-full flex ">
                 <div :class="{' w-[70%] border-2 m-2 rounded-md shadow-lg transform:-translate-y-5 duration-300': !form.name || !form.description || !form.category,
