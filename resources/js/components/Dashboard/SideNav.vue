@@ -9,7 +9,7 @@
                 <div class="w-16 h-12 ">
                     <div class="w-full h-full "><box-icon class="w-full h-full" color="#3a3c46" name='user-circle' type='solid' ></box-icon></div>
                 </div>
-                <h1 v-if="user" class="font-bold">{{ user}}</h1>
+                <h1 v-if="user" class="font-bold">{{ user.username}}</h1>
             </div>
             <router-link to="/dashboard">
                 <div class="p-1 hover:translate-x-2 hover:bg-gray-200 
@@ -76,9 +76,10 @@
     import { useRouter } from 'vue-router';
     import axios from 'axios';
     import { onMounted } from 'vue';
+    import { ref } from 'vue';
     axios.defaults.withCredentials = true;
-    axios.defaults.headers.common['Accept'] = 'application/json';
     const router = useRouter();
+    const user = ref('')
 
     const logoutUser = async () => {
         try {
@@ -93,15 +94,13 @@
     };
 
     onMounted(() => {
-        getUser()
+        axios.get('/api/user').then((res)=>{
+            user.value = res.data.user
+            console.log(res.data.user)
+        }).catch((error)=>{
+            error.response.status
+        })
     });
 
-    const getUser = async () => {
-        try {
-            let response = await axios.get("/api/user"); // Ensure the API is correctly authenticated
-            console.log(response.data)
-        } catch (error) {
-            console.error("Error fetching user:", error);
-        }
-    };
+
 </script>

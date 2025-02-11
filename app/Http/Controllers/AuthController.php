@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class AuthController extends Controller
-{
+{   
+    public function getUser(Request $request){
+
+        $user = User::find(Auth::id());
+        
+        return response()->json([
+            'message' => $user,
+
+        ], 200);
+    }
+
     public function login(Request $request)
     {
         $request->validate([

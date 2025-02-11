@@ -1,22 +1,35 @@
 <template>
     <div class="flex flex-col m-5 w-full rounded-md ">
-        <div class=" flex justify-between px-2 py-4 gap-3">
+        <div class=" flex  px-2 py-4 gap-3">
             <h1 class="text-xl font-bold">
                 <span v-if="route.name=='createProduct'">CREATE PRODUCT</span>
                 <span v-if="route.name=='editProduct'">EDIT PRODUCT</span>
             </h1>
+            
         </div>
-        <div class="mx-2 border shadow-sm"></div>
+        <div class=" justify-center">
+            <ul class="steps steps-vertical lg:steps-horizontal">
+                <li class="step step-primary"></li>
+                
+                <li :class="{'step step-primary': form.name && form.description && form.category,'step':!form.name || !form.description || !form.category }"></li>
+                <li :class="{'step step-primary': form.selectedImages.length > 0||form.currentImagePreview.length,'step': !form.selectedImages.length}"></li>
+
+            </ul>
+        </div>
+        
         <div class="flex-1 h-full w-full my-4">
             <div class="w-full flex ">
-                <div class="w-[50%]">
+                <div :class="{' w-[70%] border-2 m-2 rounded-md shadow-lg transform:-translate-y-5 duration-300': !form.name || !form.description || !form.category,
+                             'w-[70%] border m-2 rounded-md': form.name && form.description && form.category }"> 
                     <div class="p-3 ">
-                        <h1>PRODUCT NAME</h1>
+                        <h1>PRODUCT NAME</h1> 
                         <input  v-model="form.name"
                                 type="text" 
                                 placeholder="Product" 
                                 class="shadow-inner input input-bordered w-full max-w-xs"
                                 />
+
+                                
                     </div>
 
                     <div class="p-3">
@@ -36,22 +49,16 @@
                             <textarea v-model="form.description" class="shadow-inner focus:outline-gray-500 w-[100%] border p-2 h-[150px] rounded-md" placeholder="Item Description"></textarea>
                         </div>
                     </div>
-                    <div  class="p-3 flex justify-start">
-                        <button  class="border-2 border-black bg-gray-700 text-white my-2 py-2 px-6 rounded-md
-                                 hover:bg-white hover:text-black hover:transform duration-300"
-                                  @click="handleSubmit">Submit</button>
-                    </div>
+                    
                 </div>
-                <div  class="ml-24 w-full p-3">
+
+                <div v-if="form.name && form.description && form.category"  class=" w-full p-3 my-2 rounded-md border ">
   
                     <!--UPLOAD IMAGES-->
                     <div class="mt-5">
                         <h1 class="font-bold">UPLOAD <span v-if="editMode">NEW</span> IMAGES</h1>
                         <div>
-                            <button class="border-2 border-black bg-gray-700 text-white my-2 py-1 px-6 rounded-md
-                                        hover:bg-white hover:text-black hover:transform duration-300" @click="clear">
-                                Clear
-                            </button>
+
                             <input class="file:border-2 file:border-black file:bg-gray-700 file:text-white file:my-2 file:py-1 file:px-6 file:rounded-md
                             file:hover:bg-white file:hover:text-black file:hover:transform file:duration-300 file:mx-2" type="file" multiple @change="handleFileChange">
                             
@@ -102,12 +109,22 @@
                         </div>
                     </div>
                     <!-- eND OF UPLOAD IMAGES-->
-                    <div class="mt-5 flex flex-row items-center gap-2">
+
+                </div>
+
+                <div v-if="form.name && form.description && form.category && form.selectedImages.length || form.currentImagePreview.length" class="duration-500 w-[80%] p-3 border flex flex-col justify-between my-2 rounded-md mx-2">
+                    <div class="mt-5 flex flex-row border p-5 items-center gap-2">
                         <h1>PICK DATE:</h1>
                         <div class="w-8 h-8">
                             <box-icon class="w-full h-full" name='calendar' type='solid' color='#3a3c46' ></box-icon>
                         </div>
                         <Datepicker class="border p-2 shadow-inner rounded-md" v-model="form.date" />
+                    </div>
+
+                    <div  class="p-5 flex justify-start">
+                        <button  class="border-2 border-black bg-gray-700 text-white my-2 py-2 px-6 rounded-md
+                                 hover:bg-white hover:text-black hover:transform duration-300"
+                                  @click="handleSubmit">Submit</button>
                     </div>
                 </div>
             </div>
@@ -152,13 +169,19 @@ import { ErrorCodes } from 'vue';
 
     const editMode = ref(false);
 
+    
+
     onMounted(()=>{
         if(route.name === 'editProduct'){
             editMode.value = true;
             getProduct()
         }
         
+
+        
     })
+
+
 
     const getProduct = ()=>{
         axios.get(`/api/products/${route.params.id}/edit`).then((response)=>{

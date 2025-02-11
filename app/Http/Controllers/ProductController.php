@@ -69,7 +69,7 @@ class ProductController extends Controller
                     
                     $productImage = ProductImage::create([
                         'product_id' => $product->id,
-                        'name'=>$request->name,
+                        'name'=>$request->name.$image->extension(),
                         'image_path' => $path,
                     ]);
                 }
