@@ -100,6 +100,7 @@
             router.push('/dashboard');
         }catch(error){
             error_message.value = error.response?.data?.message || 'Login failed';
+            window.alert("Incorrect Login Credentials!")
         }
     }
 

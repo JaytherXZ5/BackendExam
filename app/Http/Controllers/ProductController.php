@@ -17,6 +17,9 @@ class ProductController extends Controller
         if($request->searchQuery !=''){
             $products = Product::where('name', 'like', '%'. $request->searchQuery. '%');
         }
+        if ($request->category != '') {
+            $products->where('category', $request->category);
+        }
 
         $products = $products->with(['images' => function ($query) {
             $query->orderBy('id', 'asc')->limit(1);
@@ -122,4 +125,21 @@ class ProductController extends Controller
             'images' => $uploadedImages
         ]);
     }
+
+
+    public function destroy($id){
+        $product = Product::findOrfail($id);
+        
+        foreach($product->images as $image){
+            $image_path = public_path()."/".$image->image_path;
+            if(file_exists($image_path)){
+                Storage::delete($image_path);
+                $image->delete();
+            }
+        }
+
+        $product->delete();
+    }
 }
+
+

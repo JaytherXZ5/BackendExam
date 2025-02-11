@@ -27,7 +27,7 @@
                             <option value="Appliances">Appliances</option>
                             <option value="Clothing">Clothing</option>
                             <option value="Books">Books</option>
-                            <option value="Gadgets">Gadgets</option>
+                            <option value="GadgetsAppliances">Gadgets</option>
                         </select>
                     </div>
                     <div>

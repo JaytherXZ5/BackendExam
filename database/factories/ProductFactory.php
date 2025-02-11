@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
-            'category' => $this->faker->randomElement(['Food', 'Electronics', 'Clothing']), 
+            'category' => $this->faker->randomElement(['Appliances', 'Books', 'Clothing','Gadgets']), 
             'date' => $this->faker->date(),
         ];
     }

@@ -28,11 +28,18 @@
         <table class="table">
           <thead>
           <tr class="shadow-md border-t">
-              <th class="text-black font-bold">Product</th>
-              <th class="text-black font-bold">Category</th>
-              <th class="text-black font-bold">Desc</th>
-              <th class="text-black font-bold">Date & Time</th>
-              <th class="text-black font-bold">Actions</th>
+              <th class="text-gray-600 text-[16px] font-mono">Product</th>
+              <th class="text-gray-600">
+                <select v-model="selectedCategory" @change="getProducts" class="btn">
+                  <option value="" >All Categories</option>
+                  <option class="" v-for="category in categories" :key="category" :value="category">
+                      {{ category}}
+                  </option>
+                </select>
+              </th>
+              <th class="text-gray-600 text-[16px] font-mono">Description</th>
+              <th class="text-gray-600 text-[16px] font-mono">Date & Time</th>
+              <th class="text-gray-600 text-[16px] font-mono">Actions</th>
           </tr>
           </thead>
           <tbody>
@@ -72,7 +79,7 @@
                   </div>
                   <div class="w-10 h-10 border rounded-lg">
                     <!--DELETE-->
-                    <button class="w-full h-full btn btn-ghost btn-xs"><box-icon color="red" class="w-full h-full" type='solid' name='trash'></box-icon></button>
+                    <button @click="deleteProduct(product.id)" class="w-full h-full btn btn-ghost btn-xs"><box-icon color="red" class="w-full h-full" type='solid' name='trash'></box-icon></button>
                   </div>
 
                 </div>
@@ -117,18 +124,21 @@
 import { useRouter } from 'vue-router'
 import { ref,onMounted,watch } from 'vue';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 const router = useRouter();
 
 let products = ref([]);
 let links = ref([]);
 let loading = ref(false);
 let searchQuery = ref('');
+const categories = ref(['Appliances', 'Books', 'Clothing','Gadgets']);
+const selectedCategory = ref('');
 
 onMounted(async ()=>{
-  getProducts()
+  getProducts();
 })
 
-watch(searchQuery, ()=>{
+watch(searchQuery,selectedCategory, ()=>{
   getProducts()
 })
 
@@ -140,10 +150,41 @@ const onEdit = (id) =>{
   router.push(`/products/${id}/edit`)
 }
 
+const deleteProduct=(id)=>{
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+    loading.value = true
+    if (result.isConfirmed) {
+
+      axios.delete(`/api/products/${id}`).then(()=>{
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      })
+      loading.value=false;
+      getProducts();
+    }
+  });
+}
+
 const getProducts = async ()=>{
   loading.value = true;
   try {
-    let response = await axios.get('/api/products?&searchQuery=' + searchQuery.value);
+    let response = await axios.get('/api/products',{
+      params: {
+        searchQuery: searchQuery.value,
+        category: selectedCategory.value
+      }
+    });
     products.value = response.data.products.data;
     links.value = response.data.products.links;
     
@@ -159,7 +200,6 @@ const changePage = (link)=>{
   if(!link.url || link.active){
     loading.value = false;
     return;
-    
   }
 
   axios.get(link.url).then((response)=>{
