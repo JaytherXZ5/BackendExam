@@ -73,6 +73,8 @@ class ProductController extends Controller
                         'image_path' => $path,
                     ]);
                 }
+        }else{
+            return;
         }
 
         return response()->json([

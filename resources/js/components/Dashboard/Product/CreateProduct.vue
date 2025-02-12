@@ -124,7 +124,7 @@
                     <div  class="p-5 flex justify-start">
                         <button  class="border-2 border-black bg-gray-700 text-white my-2 py-2 px-6 rounded-md
                                  hover:bg-white hover:text-black hover:transform duration-300"
-                                  @click="handleSubmit">Submit</button>
+                                  @click.prevent="handleSubmit">Submit</button>
                     </div>
                 </div>
             </div>
@@ -176,9 +176,6 @@ import { ErrorCodes } from 'vue';
             editMode.value = true;
             getProduct()
         }
-        
-
-        
     })
 
 
