@@ -52,7 +52,7 @@
     
     > php artisan db:seed --class=UserSeeder
 
-    Seed products
+    and if you want to seed products run:
     
     > php artisan db:seed --class=ProductSeeder
 
