@@ -138,7 +138,7 @@ onMounted(async ()=>{
   getProducts();
 })
 
-watch(searchQuery,()=>{
+watch(searchQuery, ()=>{
   getProducts()
 })
 

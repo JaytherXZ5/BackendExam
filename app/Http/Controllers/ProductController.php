@@ -131,7 +131,7 @@ class ProductController extends Controller
         $product = Product::findOrfail($id);
         
         foreach($product->images as $image){
-            $image_path = public_path()."/".$image->image_path;
+            $image_path = "public/".$image->image_path;
             if(file_exists($image_path)){
                 Storage::delete($image_path);
                 $image->delete();
