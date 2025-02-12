@@ -1,5 +1,5 @@
 <template>
-<div class=" flex flex-col border m-5 w-full ">
+<div class=" flex flex-col border rounded-md shadow-md m-5 w-full ">
     <div class="overflow-x-auto w-full">
       <div class="flex justify-between p-2 gap-3">
           <div class=" px-2 flex items-center font-bold ">
@@ -12,7 +12,7 @@
               <box-icon color="white" name='search-alt'></box-icon>
             </div>
             <!--SEARCH INPUT-->
-            <input class="w-full h-full px-2 rounded-r-md border" 
+            <input class="shadow-inner w-full h-full px-2 rounded-r-md border" 
               placeholder="Search Product" 
               v-model="searchQuery" 
               type="text">
@@ -96,7 +96,7 @@
     </div>
 
     <!--Pagination-->
-    <div class="py-2 flex justify-center border">
+    <div class="py-2 flex justify-center">
         <a href="#"
             class="btn"
             v-for="(link,index) in links"
