@@ -62,11 +62,11 @@
 
               <td>{{ product.category }}</td>
               <th>
-                <div ><p class="text-xs text-gray-600">{{ product.description.length > 20 ? product.description.substring(0, 20) + "..." : product.description }}</p></div>
+                <div ><p class="text-xs text-gray-600">{{ product.description.length > 30 ? product.description.substring(0, 30) + "..." : product.description }}</p></div>
                 <div>
-                    <button class="btn btn-ghost btn-xs border text-gray-400">see more</button>
+                    <button @click="showDescription(product.description)" class="btn btn-ghost btn-xs border text-gray-400">see more</button>
+                    
                 </div>
-
               </th>
               <td>
                 {{product.date}}
@@ -93,6 +93,7 @@
       </div>
 
 
+
     </div>
 
     <!--Pagination-->
@@ -116,6 +117,13 @@
           <p>Please wait while we fetch data.</p>
         </div>
       </div>
+      <!--MODAL DESC-->
+      <div v-if="close_desc" class="absolute border w-[400px] h-[300px] overflow-y-auto rounded-md shadow-2xl flex flex-col justify-evenly bg-white top-[30%] left-[40%]
+            p-5">
+          <textarea disabled class="h-[400px]">{{ description }}</textarea>
+          <button @click="closeDesc" class="btn mt-2 mx-[30%]">Close</button>
+      </div>
+      
 </div>
 </template>
   
@@ -130,17 +138,31 @@ const router = useRouter();
 let products = ref([]);
 let links = ref([]);
 let loading = ref(false);
+let close_desc = ref(false);
 let searchQuery = ref('');
 const categories = ref(['Appliances', 'Books', 'Clothing','Gadgets']);
 const selectedCategory = ref('');
-
+const description = ref('');
 onMounted(async ()=>{
   getProducts();
 })
 
+
+
 watch(searchQuery, ()=>{
   getProducts()
 })
+
+const showDescription = (desc) =>{
+  close_desc.value = true;
+  description.value = desc;
+}
+
+const closeDesc = ()=>{
+  close_desc.value = false;
+  description.value = '';
+
+}
 
 const createProduct = () =>{
   router.push('/create_product');
