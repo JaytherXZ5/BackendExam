@@ -138,7 +138,7 @@ onMounted(async ()=>{
   getProducts();
 })
 
-watch(searchQuery,selectedCategory, ()=>{
+watch(searchQuery,()=>{
   getProducts()
 })
 
@@ -177,22 +177,17 @@ const deleteProduct=(id)=>{
 }
 
 const getProducts = async ()=>{
-  loading.value = true;
-  try {
     let response = await axios.get('/api/products',{
       params: {
         searchQuery: searchQuery.value,
         category: selectedCategory.value
       }
-    });
-    products.value = response.data.products.data;
-    links.value = response.data.products.links;
-    
-  } catch (error) {
-    console.error("Error fetching products:", error);
-  } finally {
-    loading.value = false;
-  }
+    }).then((response)=>{
+      products.value = response.data.products.data;
+      links.value = response.data.products.links;
+    })
+
+  
 }
 
 const changePage = (link)=>{
