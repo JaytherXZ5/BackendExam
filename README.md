@@ -50,11 +50,11 @@
 14 Navigate to database/seeders/UserFactory.php. 
     Create account credentials and run command:
     
-    >php artisan db:seed --class=UserSeeder
+    > php artisan db:seed --class=UserSeeder
 
     Seed products
     
-    >php artisan db:seed --class=ProductSeeder
+    > php artisan db:seed --class=ProductSeeder
 
 15. Run the Project by running the command in the terminal:
     >npm run dev
