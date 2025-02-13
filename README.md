@@ -43,11 +43,14 @@
 
 12. Generate Laravel application key APP_KEY=. run in terminal:
     > php artisan key:generate
+
+13. run in terminal to create symbolic link from the public/storage directory to the storage/app/public directory:
+    > php artisan storage:link
     
-13. Run database migration in terminal:
+14. Run database migration in terminal:
     > php artisan migrate
 
-14 Navigate to database/seeders/UserFactory.php. 
+15 Navigate to database/seeders/UserFactory.php. 
     Create account credentials and run command:
     
     > php artisan db:seed --class=UserSeeder
@@ -56,9 +59,9 @@
     
     > php artisan db:seed --class=ProductSeeder
 
-15. Run the Project by running the command in the terminal:
+16. Run the Project by running the command in the terminal:
     >npm run dev
-16. Open another terminal and run:
+17. Open another terminal and run:
     >php artisan serve
 
-17. Open the project link at your localhost server http://127.0.0.1:8000
+18. Open the project link at your localhost server http://127.0.0.1:8000
